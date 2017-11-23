@@ -31,6 +31,9 @@ with tf.Session() as s:
     s.run(init)
     for i in range(1000):
         batch_x, batch_y = mnist.train.next_batch(100)
+        if i % 100 == 0:
+            train_accuracy = accuracy.eval(feed_dict = {x: batch_x, y_ : batch_y})
+            print("step %d, training accuracy:[%g]" % (i, train_accuracy))
         s.run(train_step, feed_dict={x : batch_x, y_ : batch_y})
 
     #将模型计算出来的结果W，b储存起来
